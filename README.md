@@ -1,5 +1,9 @@
 # nomount-dashboard
 
+## ESLint
+
+VS Codeで｢eslint｣プラグインを導入すれば自動修正されます｡
+
 ## Build Setup
 
 ```bash
