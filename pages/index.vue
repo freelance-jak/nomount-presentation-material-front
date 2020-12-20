@@ -1,46 +1,65 @@
 <template>
   <div class="container">
     <div>
-      {{ count }}
-      <button class="bg-blue-300 rounded p-4" @click="add">+1</button>
-      <Logo />
-      <h1 class="title">nomount-dashboard</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <h1 class="title">発表資料一覧</h1>
+      <article class="p-4 flex space-x-4">
+        <div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
+          <div v-for="presentationList in presentationState.list.PresentationList" :key="presentationList.id"> 
+            <h2  class="text-lg font-semibold text-black mb-0.5 bg-green-100 text-left">
+                {{ presentationList.id }}
+            </h2>
+            <dl class="flex flex-wrap text-xl font-medium whitespace-pre">
+              <div class="bg-red-100">
+                <dd>
+                  {{ presentationList.name }}
+                </dd>
+              </div>
+              <div class="flex w-full mt-0.5 font-normal bg-blue-100">
+                <dt class="text-left">By </dt>
+                <dd class="text-black">{{ presentationList.email }}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, SetupContext, ref } from '@vue/composition-api'
+import {
+  defineComponent,
+  SetupContext,
+  ref,
+  onMounted,
+  computed,
+  watch,
+  watchEffect,
+  reactive
+} from "@vue/composition-api";
+import PresentationComposition from "@/composition/presentation/PresentationComposition";
+import PresentationDataSources from "@/datasources/PresentationDataSources";
+import axios from "axios";
+import { Presentation } from '../domain/entity/presentation';
+import PresentationComposiotion from '../composition/presentation/PresentationComposition';
+
 export default defineComponent({
   setup(_, { root }: SetupContext) {
-    console.log(root.$route.path)
-    const count = ref(1)
-    const add = () => (count.value += 1)
+    const Presentation = PresentationComposition();
+    const presentationState = reactive({list: []});
+    
+    onMounted(() => {
+      Presentation.loadPresentationList();
+      presentationState.list = Presentation.allPresentationState;
+    });
 
+    //watchEffect(() => {console.log(presentationState)})
+    
     return {
-      count,
-      add,
+      presentationState
     }
   },
-})
+});
 </script>
 
 <style>
@@ -59,11 +78,11 @@ export default defineComponent({
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 50px;
   color: #35495e;
   letter-spacing: 1px;
 }
