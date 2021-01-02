@@ -1,6 +1,7 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg py-6">
     <div class="block overflow-x-auto mx-6">
+      <h1 class="title">発表資料一覧</h1>
       <table class="w-full text-left rounded-lg">
         <thead>
           <tr class="text-gray-800 border border-b-0">
@@ -51,7 +52,6 @@ import {
 } from "@vue/composition-api";
 import PresentationComposition from "@/composition/presentation/PresentationComposition";
 import PresentationDataSources from "@/datasources/PresentationDataSources";
-import axios from "axios";
 import { Presentation } from "../domain/entity/presentation";
 import PresentationComposiotion from "../composition/presentation/PresentationComposition";
 
@@ -94,7 +94,7 @@ export default defineComponent({
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 50px;
+  font-size: 30px;
   color: #35495e;
   letter-spacing: 1px;
 }
