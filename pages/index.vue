@@ -1,27 +1,39 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title">発表資料一覧</h1>
-      <article class="p-4 flex space-x-4">
-        <div class="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
-          <div v-for="presentationList in presentationState.list.PresentationList" :key="presentationList.id"> 
-            <h2  class="text-lg font-semibold text-black mb-0.5 bg-green-100 text-left">
-                {{ presentationList.id }}
-            </h2>
-            <dl class="flex flex-wrap text-xl font-medium whitespace-pre">
-              <div class="bg-red-100">
-                <dd>
-                  {{ presentationList.name }}
-                </dd>
-              </div>
-              <div class="flex w-full mt-0.5 font-normal bg-blue-100">
-                <dt class="text-left">By </dt>
-                <dd class="text-black">{{ presentationList.email }}</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </article>
+  <div class="bg-white rounded-lg shadow-lg py-6">
+    <div class="block overflow-x-auto mx-6">
+      <table class="w-full text-left rounded-lg">
+        <thead>
+          <tr class="text-gray-800 border border-b-0">
+            <th class="px-4 py-3">#</th>
+            <th class="px-4 py-3">名前</th>
+            <th class="px-4 py-3">タイトル</th>
+            <th class="px-4 py-3">発表日</th>
+            <th class="px-4 py-3"></th>
+          </tr>
+        </thead>
+        <tbody
+          v-for="presentationList in presentationState.list.PresentationList"
+          :key="presentationList.id"
+        >
+          <tr
+            class="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0"
+          >
+            <td class="px-4 py-4">{{ presentationList.id }}</td>
+            <td class="px-4 py-4">{{ presentationList.name }}</td>
+            <td class="px-4 py-4">
+              {{ presentationList.title }}
+            </td>
+            <td class="px-4 py-4">{{ presentationList.presentation_date }}</td>
+            <td class="px-4 py-4">
+              <button
+                class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+              >
+                <span>Active</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -35,29 +47,29 @@ import {
   computed,
   watch,
   watchEffect,
-  reactive
+  reactive,
 } from "@vue/composition-api";
 import PresentationComposition from "@/composition/presentation/PresentationComposition";
 import PresentationDataSources from "@/datasources/PresentationDataSources";
 import axios from "axios";
-import { Presentation } from '../domain/entity/presentation';
-import PresentationComposiotion from '../composition/presentation/PresentationComposition';
+import { Presentation } from "../domain/entity/presentation";
+import PresentationComposiotion from "../composition/presentation/PresentationComposition";
 
 export default defineComponent({
   setup(_, { root }: SetupContext) {
     const Presentation = PresentationComposition();
-    const presentationState = reactive({list: []});
-    
+    const presentationState = reactive({ list: [] });
+
     onMounted(() => {
       Presentation.loadPresentationList();
       presentationState.list = Presentation.allPresentationState;
     });
 
     //watchEffect(() => {console.log(presentationState)})
-    
+
     return {
-      presentationState
-    }
+      presentationState,
+    };
   },
 });
 </script>

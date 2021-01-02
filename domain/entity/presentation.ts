@@ -1,13 +1,10 @@
 export class Presentation {
-    /*id!: number,
-    name!: string,
-    path!: string,
-    createdDate!: string*/
-
-    //↓後で消す
     id!: number
+    user_id!: number
     name!: string
-    email!: string
+    title!: string
+    document_path!: string
+    presentation_date!: string
 
     constructor(init: Partial<Presentation>) {
         Object.assign(this, init)

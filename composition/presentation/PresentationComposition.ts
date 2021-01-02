@@ -2,15 +2,12 @@ import PresentationDataSources from "@/datasources/PresentationDataSources";
 import PresentationComposition from '@/composition/presentation/PresentationComposition';
 
 type presentationListData = {
-    /*id: number,
-    name: string,
-    path: string,
-    createdDate: string*/
-
-    //↓後で消す
-    id: number,
-    name:string,
-    email: string
+    id: number
+    user_id: number
+    title: string
+    name: string
+    document_path: string
+    presentation_date: string
 }
 
 type presentationState = {
@@ -30,8 +27,11 @@ export default function PresentationComposiotion() {
         allPresentationState.PresentationList = result.map(item => {
             return {
                 id: item.id,
+                user_id: item.user_id,
+                title: item.title,
                 name: item.name,
-                email: item.email
+                document_path: item.document_path,
+                presentation_date: item.presentation_date
             }
         });
     };
