@@ -33,15 +33,21 @@ export default {
     "@nuxtjs/tailwindcss",
   ],
 
+  env: {
+    baseUrl: process.env.BASE_URL || "http://localhost:3000/",
+  },
+
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
+    "@nuxtjs/dotenv",
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "http://localhost/api",
+    //baseURL: "http://localhost/api",
+    baseURL: process.env.BASE_URL,
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

@@ -1,5 +1,4 @@
 import PresentationDataSources from "@/datasources/PresentationDataSources";
-import PresentationComposition from '@/composition/presentation/PresentationComposition';
 
 type presentationListData = {
     id: number
@@ -19,9 +18,9 @@ export default function PresentationComposiotion() {
         PresentationList: []
     };
 
+    const datasources = new PresentationDataSources();
+
     const loadPresentationList = async () => {
-        const datasources = new PresentationDataSources();
-        
         const result = await datasources.getPresentation();
 
         allPresentationState.PresentationList = result.map(item => {
@@ -36,8 +35,23 @@ export default function PresentationComposiotion() {
         });
     };
 
+    const postPresentationList = async (params: any) => {
+        const formData = new FormData();
+        formData.append('name', params.name);
+        formData.append('title', params.title);
+        formData.append('presentation_date', params.presentation_date);
+        formData.append('upload_file', new Blob([params.upload_file]));
+        const result = await datasources.postPresentation(formData).then((res) => {
+            alert('OK!!');
+            console.log(res);
+        }).catch((err) => {
+            alert('失敗!!');
+        });
+    };
+
     return {
         loadPresentationList,
-        allPresentationState
+        allPresentationState,
+        postPresentationList
     }
 }

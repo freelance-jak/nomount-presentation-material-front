@@ -169,7 +169,7 @@ export async function setContext (app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"baseUrl":"http://localhost/api/","BASE_URL":"http://localhost/api/"}
     }
     // Only set once
     if (!process.static && context.req) {

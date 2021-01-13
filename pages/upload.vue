@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <form enctype="multipart/form-data">
-      <h1 class="title">発表資料アップロード</h1>
+    <form enctype="multipart/form-data" @submit.prevent="submit">
+      <h1 class="title text-gray-900">発表資料アップロード</h1>
       <label
         for="name"
-        class="block text-xs font-semibold text-gray-600 uppercase"
+        class="block text-xs font-semibold text-gray-900 uppercase"
         >名前</label
       >
       <input
@@ -20,7 +20,7 @@
       {{ state.name }}
       <label
         for="title"
-        class="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+        class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
         >タイトル</label
       >
       <input
@@ -36,7 +36,7 @@
       {{ state.title }}
       <label
         for="date"
-        class="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+        class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
         >発表日</label
       >
       <input
@@ -51,7 +51,7 @@
       {{ state.presentation_date }}
       <label
         for="file"
-        class="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+        class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
         >発表資料</label
       >
       <input
@@ -65,8 +65,7 @@
       />
       <button
         type="submit"
-        class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none"
-        @click="onSubmit()"
+        class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-gray-900 shadow-lg focus:outline-none hover:bg-gray-700 hover:shadow-none"
       >
         Upload
       </button>
@@ -76,9 +75,7 @@
 
 <script lang="ts">
 import { reactive, ref, SetupContext } from "@vue/composition-api";
-import { Presentation } from "../domain/entity/presentation";
 import PresentationComposiotion from "../composition/presentation/PresentationComposition";
-import axios from "axios";
 
 export default {
   setup(_, { root }: SetupContext) {
@@ -90,18 +87,17 @@ export default {
     });
 
     function fileSelected(event: any) {
-      //event.preventDefault();
       state.value.upload_file = event.target.files[0];
     }
 
-    async function onSubmit() {
-      await PresentationComposiotion().postPresenData(state.value);
+    async function submit() {
+      await PresentationComposiotion().postPresentationList(state);
     }
 
     return {
       state,
       fileSelected,
-      onSubmit,
+      submit,
     };
   },
 };
@@ -123,7 +119,6 @@ export default {
   display: block;
   font-weight: 300;
   font-size: 30px;
-  color: #35495e;
   letter-spacing: 1px;
   padding-bottom: 30px;
 }

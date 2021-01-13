@@ -1,11 +1,11 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg py-6">
     <div class="block overflow-x-auto mx-6">
-      <h1 class="title">発表資料一覧</h1>
+      <h1 class="title text-gray-900">発表資料一覧</h1>
       <table class="w-full text-left rounded-lg">
         <thead>
           <tr class="text-gray-800 border border-b-0">
-            <th class="px-4 py-3">#</th>
+            <th class="px-4 py-3">No</th>
             <th class="px-4 py-3">名前</th>
             <th class="px-4 py-3">タイトル</th>
             <th class="px-4 py-3">発表日</th>
@@ -27,9 +27,9 @@
             <td class="px-4 py-4">{{ presentationList.presentation_date }}</td>
             <td class="px-4 py-4">
               <button
-                class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                class="border border-gray-700 bg-gray-900 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-700 focus:outline-none focus:shadow-outline"
               >
-                <span>Active</span>
+                <span>ダウンロード</span>
               </button>
             </td>
           </tr>
@@ -51,9 +51,6 @@ import {
   reactive,
 } from "@vue/composition-api";
 import PresentationComposition from "@/composition/presentation/PresentationComposition";
-import PresentationDataSources from "@/datasources/PresentationDataSources";
-import { Presentation } from "../domain/entity/presentation";
-import PresentationComposiotion from "../composition/presentation/PresentationComposition";
 
 export default defineComponent({
   setup(_, { root }: SetupContext) {
@@ -95,7 +92,6 @@ export default defineComponent({
   display: block;
   font-weight: 300;
   font-size: 30px;
-  color: #35495e;
   letter-spacing: 1px;
 }
 
