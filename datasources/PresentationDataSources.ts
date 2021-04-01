@@ -21,6 +21,15 @@ export default class PresentationDataSources {
         } catch (e) {
             return e;
         }
-        
+    }
+
+    async download(id: number) {
+        try {
+            const response = await axios.get(process.env.BASE_URL + 'presentation/download/' + id, {
+                responseType: 'blob',
+            });
+        } catch (e) {
+            return e;
+        }
     }
 }

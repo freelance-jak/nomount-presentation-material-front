@@ -28,6 +28,7 @@
             <td class="px-4 py-4">
               <button
                 class="border border-gray-700 bg-gray-900 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-700 focus:outline-none focus:shadow-outline"
+                @click="download(presentationList.id)"
               >
                 <span>ダウンロード</span>
               </button>
@@ -51,6 +52,7 @@ import {
   reactive,
 } from "@vue/composition-api";
 import PresentationComposition from "@/composition/presentation/PresentationComposition";
+import { Presentation } from '../domain/entity/presentation';
 
 export default defineComponent({
   setup(_, { root }: SetupContext) {
@@ -62,10 +64,15 @@ export default defineComponent({
       presentationState.list = Presentation.allPresentationState;
     });
 
+    const download = async (id: number) => {
+      await Presentation.downloadFile(id);
+    };
+    
     //watchEffect(() => {console.log(presentationState)})
 
     return {
       presentationState,
+      download
     };
   },
 });

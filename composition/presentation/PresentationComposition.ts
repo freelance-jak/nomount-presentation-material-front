@@ -44,14 +44,34 @@ export default function PresentationComposiotion() {
         const result = await datasources.postPresentation(formData).then((res) => {
             alert('OK!!');
             console.log(res);
-        }).catch((err) => {
-            alert('失敗!!');
+        }).catch((e) => {
+            console.log(e)
         });
     };
+
+    const downloadFile = async (id: number) => {
+        const result = await datasources.download(id)
+        .then((res) => {
+            const blob = new Blob([res.data], { type: 'application/pdf' });
+
+            const url = (window.URL || window.webkitURL).createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'test.pdf';
+            // aタグ要素を画面に一時的に追加する
+            document.body.appendChild(a);
+            a.click();
+            // 不要になったら削除.
+            document.body.removeChild(a);
+        }).catch((e) => {
+            return e;
+        });
+    }
 
     return {
         loadPresentationList,
         allPresentationState,
-        postPresentationList
+        postPresentationList,
+        downloadFile,
     }
 }
