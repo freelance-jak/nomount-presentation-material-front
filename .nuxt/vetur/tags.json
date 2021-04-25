@@ -4,5 +4,17 @@
   },
   "LazyLogo": {
     "description": "Auto imported from components/Logo.vue"
+  },
+  "Table": {
+    "description": "Auto imported from components/Table.vue"
+  },
+  "LazyTable": {
+    "description": "Auto imported from components/Table.vue"
+  },
+  "UploadForm": {
+    "description": "Auto imported from components/UploadForm.vue"
+  },
+  "LazyUploadForm": {
+    "description": "Auto imported from components/UploadForm.vue"
   }
 }
