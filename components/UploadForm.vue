@@ -1,63 +1,75 @@
 <template>
     <form enctype="multipart/form-data" @submit.prevent="submit">
         <h1 class="title text-gray-900">発表資料アップロード</h1>
-        <label for="name" class="block text-xs font-semibold text-gray-900 uppercase">
-            名前
-        </label>
-        <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="xxxxxx"
-            autocomplete="given-name"
-            class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-            required
-            v-model="state.name"
-        />
-        <label
-            for="title"
-            class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
-            >タイトル</label
-        >
-        <input
-            id="title"
-            type="text"
-            name="title"
-            placeholder="xxxxxx"
-            autocomplete="title"
-            class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-            required
-            v-model="state.title"
-        />
-        <label
-            for="date"
-            class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
-        >
-            発表日
-        </label>
-        <input
-            id="date"
-            type="date"
-            name="date"
-            autocomplete="date"
-            class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-            required
-            v-model="state.presentation_date"
-        />
-        <label
-            for="file"
-            class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
-            >発表資料</label
-        >
-        <input
-            id="file"
-            type="file"
-            name="file"
-            autocomplete="new-password"
-            class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
-            required
-            v-on:change="fileSelected"
-        />
+        <ValidationProvider v-slot="{ errors }" name="名前" rules="required">
+            <label for="name" class="block text-xs font-semibold text-gray-900 uppercase">
+                名前
+            </label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="xxxxxx"
+                autocomplete="given-name"
+                class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                required
+                v-model="state.name"
+            />
+            <span class="text-red-600">{{ errors[0] }}</span>
+        </ValidationProvider>
+        <ValidationProvider v-slot="{ errors }" name="タイトル" rules="required">
+            <label
+                for="title"
+                class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
+                >タイトル</label
+            >
+            <input
+                id="title"
+                type="text"
+                name="title"
+                placeholder="xxxxxx"
+                autocomplete="title"
+                class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                required
+                v-model="state.title"
+            />
+            <span class="text-red-600">{{ errors[0] }}</span>
+        </ValidationProvider>
+        <ValidationProvider v-slot="{ errors }" name="発表日" rules="required">
+            <label
+                for="date"
+                class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
+            >
+                発表日
+            </label>
+            <input
+                id="date"
+                type="date"
+                name="date"
+                autocomplete="date"
+                class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                
+                v-model="state.presentation_date"
+            />
+            <span class="text-red-600">{{ errors[0] }}</span>
+        </ValidationProvider>
+        <ValidationProvider v-slot="{ errors }" name="発表資料" rules="required">
+            <label
+                for="file"
+                class="block mt-2 text-xs font-semibold text-gray-900 uppercase"
+                >発表資料</label
+            >
+            <input
+                id="file"
+                type="file"
+                name="file"
+                autocomplete="new-password"
+                class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                required
+                v-on:change="fileSelected"
+            />
+            <span class="text-red-600">{{ errors[0] }}</span>
+        </ValidationProvider>
         <button
             type="submit"
             class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-gray-900 shadow-lg focus:outline-none hover:bg-gray-700 hover:shadow-none"
@@ -68,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, SetupContext } from "@vue/composition-api";
+import { reactive, ref, SetupContext, computed } from "@vue/composition-api";
 import PresentationComposiotion from "@/composition/presentation/PresentationComposition";
 
 export default {
