@@ -3,12 +3,14 @@
     "name": "upload",
     "path": "/upload",
     "component": "/Users/tanakaryouta/project/nomount-presentation-material-front/pages/upload.vue",
-    "chunkName": "pages/upload"
+    "chunkName": "pages/upload",
+    "_name": "_3b69ffe7"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/tanakaryouta/project/nomount-presentation-material-front/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_8d2c6e48"
   }
 ]

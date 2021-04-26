@@ -3,6 +3,8 @@
     <div class="block overflow-x-auto mx-6">
       <h1 class="title text-gray-900">発表資料一覧</h1>
       <Table />
+      <!-- <router-link to="/upload">ファイルをアップロードする</router-lnk> -->
+      <nuxt-link to="/upload" class="underline ...">ファイルをアップロードする</nuxt-link>
     </div>
   </div>
 </template>

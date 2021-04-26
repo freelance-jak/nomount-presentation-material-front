@@ -76,6 +76,7 @@
         >
             Upload
         </button>
+        <nuxt-link to="/" class="underline ...">TOPへ戻る</nuxt-link>
     </form>
 </template>
 
